@@ -1,3 +1,4 @@
+require('dotenv').config()
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -5,8 +6,10 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueAxios from 'axios'
 
-// Vue.use(VueAxios)
+
+
 window.axios = VueAxios
+window.axios.defaults.baseURL = 'http://localhost:8000/'
 
 Vue.use(Vuetify)
 

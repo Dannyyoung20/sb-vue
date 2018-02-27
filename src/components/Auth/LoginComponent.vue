@@ -6,7 +6,7 @@
                 <v-card >
                     <v-card-text>
                         <v-container>
-                            <v-form v-model="valid" @submit.prevent="onLogin">                                
+                            <v-form v-model="valid" @submit.prevent="onLogin">
                                 <v-text-field
                                 label="E-mail"
                                 type="email"
@@ -29,10 +29,10 @@
             </v-flex>
         </v-layout>
 
-      
+
     </v-slide-y-transition>
 </v-container>
-  
+
 </template>
 
 <script>
@@ -53,23 +53,23 @@ export default {
             ]
         }
     },
-    
+
     methods: {
         onLogin () {
             var data = {
-                client_id: 2,
-                client_secret: 'Uqzj7uKrCXxmKd7ssDnyDgAcxE8YKKN5b2t6ztag',
+                client_id: process.env.PASSPORT_CLIENT_ID,
+                client_secret: process.env.PASSPORT_CLIENT_SECRET,
                 grant_type: 'password',
                 username: this.email,
                 password: this.password
             }
 
-            axios.post('http://localhost:8000/oauth/token', data)
+            axios.post('oauth/token', data)
             .then(response => {
                 console.log(response)
             })
         }
     }
-  
+
 }
 </script>
