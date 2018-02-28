@@ -8,17 +8,33 @@
                             <v-container>
                                 <v-layout>
                                     <v-flex text-sm-center text-xs-center>
-                                        <p>Create an account, ITS FREE
-                                            <router-link to="/signup">here</router-link>
+                                        <p>Already have an account, 
+                                            <router-link to="/login">login </router-link>
+                                            here
                                         </p>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout>
                                     <v-flex>
-                                        <h1>Login</h1>
+                                        <h1>Signup</h1>
                                     </v-flex>
                                 </v-layout>
-                                <v-form v-model="valid" @submit.prevent="onLogin">
+                                <v-form v-model="valid" @submit.prevent="onSignup">
+                                    <v-text-field
+                                    label="Firstname"
+                                    type="text"
+                                    :rules="nameRules"
+                                    v-model="firstname"
+                                    required
+                                    ></v-text-field>
+                                    <v-text-field
+                                    label="Lastname"
+                                    type="text"
+                                    :rules="nameRules"
+                                    v-model="lastname"
+                                    required
+                                    ></v-text-field>
+
                                     <v-text-field
                                     label="E-mail"
                                     type="email"
@@ -26,16 +42,15 @@
                                     v-model="email"
                                     required
                                     ></v-text-field>
+
                                     <v-text-field
                                     label="Password"
                                     type="password"
                                     v-model="password"
                                     required
                                     ></v-text-field>
-                                    <v-btn type="submit" color="primary" >Login</v-btn>
+                                    <v-btn type="submit" color="primary">Signup</v-btn>
                                 </v-form>
-                                <br>
-                                
                             </v-container>
                         </v-card-text>
 
@@ -44,6 +59,7 @@
             </v-layout>
         </v-slide-y-transition>
     </v-container>
+
 </template>
 
 <script>
@@ -51,8 +67,13 @@ export default {
     data () {
         return {
             valid: false,
+            firstname: '',
+            lastname: '',
             email: '',
             password: '',
+            nameRules: [
+              v => !!v || 'Name is required'
+            ],
             emailRules: [
               v => !!v || 'E-mail is required',
               v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
@@ -61,18 +82,17 @@ export default {
     },
 
     methods: {
-        onLogin () {
-            var data = {
-                client_id:6,
-                client_secret:'PWva5q5JuOxoZ7Njgy6AhGZODD8kxL5wGEyDU6Rr',
-                grant_type: 'password',
-                username: this.email,
+        onSignup () {
+            const data = {
+                firstname: this.firstname,
+                lastname: this.lastname,
+                email: this.email,
                 password: this.password
             }
-
-            this.$store.dispatch('onLogin', data).then(res => {
-                this.$router.push('/dashboard')
-            })
+            /* Dispatch an action to the store */
+            this.$store.dispatch('onSignup', data).then(res => {
+                this.$router.push('/login')
+            }) 
         }
     }
 
