@@ -6,18 +6,43 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueAxios from 'axios'
 
+/* Auth token pkg */
+import Auth from './AuthPackage'
+window.Auth = Auth
 
-
-window.axios = VueAxios
-window.axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+/* Vuex Store */
+import { store } from './vuexstore/store'
 
 Vue.use(Vuetify)
 
-Vue.config.productionTip = false
+const axios = window.axios = VueAxios
+axios.defaults.baseURL = 'http://localhost:8000/'
 
+/*
+* Axios request inteceptor
+*/
+axios.interceptors.request.use(function (config) {
+  const token = Auth.getToken();
+
+  if (token != null) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+}, function (err) {
+  return Promise.reject(err);
+});
+/*
+* End of inteceptor
+*/
+
+
+Vue.config.productionTip = false
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

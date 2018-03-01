@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"
@@ -27,7 +27,7 @@
       app
       :clipped-left="clipped"
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
@@ -39,6 +39,12 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn flat @click="logout" v-if="isAuth">
+        <v-icon>exit_to_app</v-icon>
+        Logout
+      </v-btn>
+            <v-spacer></v-spacer>
+
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>menu</v-icon>
       </v-btn>
@@ -73,18 +79,31 @@ export default {
   data () {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
+      items: [
+        { icon: 'bubble_chart', title: 'Inspire'},
+        { icon: 'event', title: 'Courses'}
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'StudyBuddy'
     }
   },
-  name: 'App'
+  name: 'App',
+  computed: {
+    isAuth () {
+      return this.$store.getters.isAuth
+    }
+  },
+  
+  methods: {
+    logout () {
+      this.$store.dispatch('logout').then(res => {
+        this.$router.push('/login')
+      })
+    }
+  }
 }
 </script>
