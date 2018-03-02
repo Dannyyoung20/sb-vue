@@ -6,14 +6,19 @@ Vue.use(Vuex)
 export const store =  new Vuex.Store({
     state: {
         user: null,
-        isAuth: !! localStorage.getItem('token')
+        isAuth: !! localStorage.getItem('token'),
+        categories: null,
+        category: null
     },
 
     getters: {
         user: state => state.user,
 
-        isAuth: state => state.isAuth
+        isAuth: state => state.isAuth,
+        
+        categories: state => state.categories,
 
+        category: state => state.category
     },
 
     mutations: {
@@ -32,6 +37,13 @@ export const store =  new Vuex.Store({
             localStorage.setItem('token', payload.token)
             localStorage.setItem('expiration', payload.expiration)
             state.isAuth = true
+        },
+        GET_CATEGORIES (state,payload) {
+            state.categories = payload
+        },
+        
+        GET_CATEGORY(state, payload) {
+            state.category = payload
         }
     },
 
@@ -43,14 +55,13 @@ export const store =  new Vuex.Store({
                         'token': response.data.access_token,
                         'expiration': response.data.expires_in + Date.now()
                     }
-                    console.log(response)
+                    // console.log(response)
                     commit('IS_AUTH', data)
                     resolve()
 
                 }).catch(error => {
                     reject()
                     commit ('IS_AUTH', false)
-                    console.log(error)
                 })
             })
         },
@@ -62,7 +73,7 @@ export const store =  new Vuex.Store({
                 'token': response.data.access_token,
                 'expiration': response.data.expires_in + Date.now()
             }
-                console.log(response)
+                // console.log(response)
                 commit('IS_AUTH', data)
                 resolve()
             }).catch(error => {
@@ -86,6 +97,24 @@ export const store =  new Vuex.Store({
 
         logout ({commit}) {
             commit('LOGOUT')
+        },
+
+        getCategories ({commit}) {
+            axios.get('api/categories').then(categories => {
+                commit('GET_CATEGORIES', categories.data)
+                console.log(categories.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
+        getCategory({ commit }, id) {
+            axios.get('api/categories/' + id + '/courses').then(category => {
+                commit('GET_CATEGORY', category.data)
+                console.log(category.data)
+            }).catch(error => {
+                console.log(error)
+            })
         }
 
     }

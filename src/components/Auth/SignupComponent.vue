@@ -91,7 +91,7 @@ export default {
             }
             /* Dispatch an action to the store */
             this.$store.dispatch('onSignup', data).then(res => {
-                this.$router.push('/dashboard')
+                this.$router.push('/home')
             })
         }
     }
