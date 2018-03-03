@@ -2,6 +2,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Auth/LoginComponent'
 import Signup from '@/components/Auth/SignupComponent'
 import Dashboard from '@/components/Pages/Dashboard'
+import Category from '@/components/Pages/CategoryCourses'
 
 // Routes
 
@@ -31,13 +32,22 @@ export default [
     }
   },
   {
-    path: '/dashboard',
+    path: '/home',
     name: 'Dashboard',
     component: Dashboard,
     meta: {
       forAuth: true
     }
-  }
+  },
+  {
+    path: '/category/:id/courses',
+    name: 'Category',
+    component: Category,
+    props:true,
+    meta: {
+      forAuth: true
+    }
+  },
 ];
 
 
