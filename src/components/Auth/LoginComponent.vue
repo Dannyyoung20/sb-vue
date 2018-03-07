@@ -1,6 +1,14 @@
 <template>
     <v-container>
+            <v-layout row v-if="error">
+                <v-flex xs12 sm6 offset-sm3>
+                    <auth-alert @dismissed="onDismissed"
+                        :text="error">
+                    </auth-alert>
+                </v-flex>
+            </v-layout>
         <v-slide-y-transition mode="out-in">
+            <!-- Auth error -->
             <v-layout row>
                 <v-flex xs12 sm6 offset-sm3>
                     <v-card >
@@ -59,13 +67,15 @@ export default {
             ]
         }
     },
+    computed: {
+        error () {
+            return this.$store.getters.error
+        }
+    },
 
     methods: {
         onLogin () {
             var data = {
-                client_id: 2,
-                client_secret: 'BTSX6FuKFRjWc3rjzT31OCei2Pn4iS0xSEalF6Qx',
-                grant_type: 'password',
                 username: this.email,
                 password: this.password
             }
@@ -73,6 +83,10 @@ export default {
             this.$store.dispatch('onLogin', data).then(res => {
                 this.$router.push('/home')
             })
+        },
+
+        onDismissed () {
+            this.$store.dispatch('clearError')
         }
     }
 
