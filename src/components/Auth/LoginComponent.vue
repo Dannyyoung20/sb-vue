@@ -63,8 +63,8 @@ export default {
     methods: {
         onLogin () {
             var data = {
-                client_id: 2,
-                client_secret: 'BTSX6FuKFRjWc3rjzT31OCei2Pn4iS0xSEalF6Qx',
+                client_id: 4,
+                client_secret: 'SuTqPNkpQaWyVy9zFLQux9tDY2dZBR2JahZwFY6E',
                 grant_type: 'password',
                 username: this.email,
                 password: this.password

@@ -8,12 +8,12 @@
       v-model="drawer"
       enable-resize-watcher
       app>
-    
+
       <v-list v-if="isAuth">
           <v-list-tile avatar tag="div">
             <v-list-tile-avatar>
               <img src="https://randomuser.me/api/portraits/men/85.jpg" >
-            </v-list-tile-avatar> 
+            </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title>Mr Bean</v-list-tile-title>
             </v-list-tile-content>
@@ -26,14 +26,17 @@
                 <v-list-tile-title>Categories</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            
+
             <v-list-tile v-model="item.active"
               v-for="item in categories"
               :key="item.title"
               no-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              </v-list-tile-content>
+              <!-- :to="{ name: 'Category', params: { id: item.id }}" -->
+              <router-link>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile-content>
+              </router-link>
               <v-list-tile-action>
                 <v-icon>school</v-icon>
               </v-list-tile-action>
@@ -122,7 +125,7 @@ export default {
       return this.$store.getters.categories
     }
   },
-  
+
   methods: {
     logout () {
       this.$store.dispatch('logout').then(res => {
