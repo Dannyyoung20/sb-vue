@@ -1,73 +1,82 @@
-export const actions = {
+const actions = {
+    onLogin({ commit }, user) {
+        commit('CLEAR_ERROR')
+        return new Promise((resolve, reject) => {
+            axios.post('api/login', user).then((response) => {
+                const data = {
+                    'token': response.data.access_token,
+                    'expiration': response.data.expires_in + Date.now()
+                }
+                if (!data.token)
+                    return
+                else
+                    commit('IS_AUTH', data)
 
-  onLogin ({commit}, user) {
-      return new Promise ((resolve, reject) => {
-          axios.post('oauth/token', user).then((response) => {
-            console.log(response);
-              const data = {
-                  'token': response.data.access_token,
-                  'expiration': response.data.expires_in + Date.now()
-              }
-              // console.log(response)
-              commit('IS_AUTH', data)
-              resolve()
+                resolve(response)
 
-          }).catch(error => {
-              reject()
-              commit ('IS_AUTH', false)
-          })
-      })
-  },
+            }).catch(({ response }) => {
+                reject(response)
+                commit('AUTH_ERROR', response.data.error)
+            })
+        })
+    },
 
-  onSignup ({commit}, user) {
-    return new Promise ((resolve, reject) => {
-      axios.post('/api/register', user).then((response) => {
-        const data = {
-          'token': response.data.access_token,
-          'expiration': response.data.expires_in + Date.now()
-      }
-          // console.log(response)
-          commit('IS_AUTH', data)
-          resolve()
-      }).catch(error => {
-          reject()
-          commit('IS_AUTH', false)
-      })
-    })
-  },
+    onSignup({ commit }, user) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/register', user).then((response) => {
+                const data = {
+                    'token': response.data.access_token,
+                    'expiration': response.data.expires_in + Date.now()
+                }
+                commit('IS_AUTH', data)
+                resolve(response)
 
-  getUser ({commit}) {
-      axios.get('api/user').then(response => {
-          commit('SET_USER', null)
-          commit('SET_USER', response.data)
-          console.log(response.data)
+            }).catch(error => {
+                reject(error)
+                commit('IS_AUTH', false)
+            })
+        })
+    },
 
-      }).catch(error => {
-          commit ('SET_USER', null)
-          console.log(error)
-      })
-  },
+    getUser({ commit }) {
+        axios.get('api/user').then(response => {
+            commit('SET_USER', null)
+            commit('SET_USER', response.data)
+            console.log(response.data)
 
-  logout ({commit}) {
-      commit('LOGOUT')
-  },
+        }).catch(error => {
+            commit('SET_USER', null)
+            console.log(error)
+        })
+    },
 
-  getCategories ({commit}) {
-      axios.get('api/categories').then(categories => {
-          commit('GET_CATEGORIES', categories.data)
-          console.log(categories.data)
-      }).catch(error => {
-          console.log(error)
-      })
-  },
+    logout({ commit }) {
+        commit('LOGOUT')
+        commit('CLEAR_ERROR')
+    },
 
-  getCategory({ commit }, id) {
-      axios.get('api/categories/' + id + '/courses').then(category => {
-          commit('GET_CATEGORY', category.data)
-          console.log(category.data)
-      }).catch(error => {
-          console.log(error)
-      })
-  }
+    getCategories({ commit }) {
+        axios.get('api/categories').then(categories => {
+            commit('GET_CATEGORIES', categories.data)
+            console.log(categories.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    },
+
+    getCategory({ commit }, id) {
+        axios.get('api/categories/' + id + '/courses').then(category => {
+            commit('GET_CATEGORY', category.data)
+            console.log(category.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    },
+
+    clearError({ commit }) {
+        commit('CLEAR_ERROR')
+    }
 
 }
+
+export default actions
