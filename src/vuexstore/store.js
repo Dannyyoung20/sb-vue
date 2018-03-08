@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import actions from './actions'
+import mutations from './mutations'
 
 Vue.use(Vuex)
 
 export const store =  new Vuex.Store({
+    mutations,
+    actions,
     state: {
         user: null,
         isAuth: !! localStorage.getItem('token'),
@@ -16,7 +20,7 @@ export const store =  new Vuex.Store({
         user: state => state.user,
 
         isAuth: state => state.isAuth,
-        
+
         categories: state => state.categories,
 
         category: state => state.category,
@@ -134,5 +138,6 @@ export const store =  new Vuex.Store({
             commit('CLEAR_ERROR')
         }
 
+        category: state => state.category
     }
 })
