@@ -31,8 +31,9 @@
               v-for="item in categories"
               :key="item.title"
               no-action>
-              <!-- :to="{ name: 'Category', params: { id: item.id }}" -->
-              <router-link>
+
+              <router-link
+              :to="{ name: 'Category', params: { id: item.id }}">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
@@ -110,7 +111,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'StudyBuddy'
+      title: 'Lekture'
     }
   },
   name: 'App',
