@@ -4,16 +4,16 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import AuthAlert from '@/components/Errors/AuthAlert'
 import VueAxios from 'axios'
+import { store } from './vuexstore/store'
 
 /* Auth token pkg */
 import Auth from './AuthPackage'
 window.Auth = Auth
 
-/* Vuex Store */
-import { store } from './vuexstore/store'
-
 Vue.use(Vuetify)
+Vue.component('auth-alert', AuthAlert)
 
 const axios = window.axios = VueAxios
 axios.defaults.baseURL = 'http://localhost:8000/'
