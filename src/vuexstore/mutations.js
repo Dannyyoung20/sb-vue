@@ -1,15 +1,14 @@
-export const mutations = {
+const mutations = {
   SET_USER (state, payload) {
       state.user = payload
   },
-
   LOGOUT (state) {
       localStorage.removeItem('token')
       localStorage.removeItem('expiration')
       state.user = null
       state.isAuth = false
+      state.categories = null
   },
-
   IS_AUTH (state, payload) {
       localStorage.setItem('token', payload.token)
       localStorage.setItem('expiration', payload.expiration)
@@ -21,5 +20,13 @@ export const mutations = {
 
   GET_CATEGORY(state, payload) {
       state.category = payload
+  },
+  AUTH_ERROR (state, payload) {
+      state.error = payload
+  },
+  CLEAR_ERROR (state, payload) {
+      state.error = null
   }
 }
+
+export default mutations
