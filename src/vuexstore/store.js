@@ -13,7 +13,8 @@ export const store =  new Vuex.Store({
         isAuth: !! localStorage.getItem('token'),
         categories: null,
         category: null,
-        error: null
+        error: null,
+        user_role: null
     },
 
     getters: {
@@ -25,6 +26,8 @@ export const store =  new Vuex.Store({
 
         category: state => state.category,
 
-        error: state => state.error
+        error: state => state.error,
+
+        user_role: state => state.user_role
     },
 })

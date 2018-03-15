@@ -111,7 +111,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Lekture'
+      title: 'Leckture'
     }
   },
   name: 'App',

@@ -2,6 +2,9 @@ const mutations = {
     SET_USER(state, payload) {
         state.user = payload
     },
+    SET_USER_ROLE(state, payload) {
+        state.user_role = payload
+    },
     LOGOUT(state) {
         localStorage.removeItem('token')
         localStorage.removeItem('expiration')

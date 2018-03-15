@@ -42,7 +42,8 @@ const actions = {
         axios.get('api/user').then(response => {
             commit('SET_USER', null)
             commit('SET_USER', response.data)
-            console.log(response.data)
+            commit('SET_USER_ROLE', response.data.data.role)
+            console.log(response.data.data.role)
 
         }).catch(error => {
             commit('SET_USER', null)

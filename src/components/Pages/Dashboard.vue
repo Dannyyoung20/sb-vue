@@ -11,7 +11,7 @@
                 name="input-1"
                 label="Search for courses"
                 id="testing"
-                class="input-group--focused"                
+                class="input-group--focused"
                 :box="true"
                 ></v-text-field>
             </v-flex>
@@ -29,17 +29,17 @@ export default {
     components: { Categories },
     data () {
         return {
-            msg: 'What would you like to learn today?',
+          msg: 'What would you like to learn today?',
         }
     },
-    
+
     created () {
-        this.getUser()
+      this.getUser()
     },
-    
+
     methods: {
         getUser () {
-            this.$store.dispatch('getUser')
+          this.$store.dispatch('getUser')
         }
     }
 
