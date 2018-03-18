@@ -7,9 +7,9 @@ import 'vuetify/dist/vuetify.min.css'
 import AuthAlert from '@/components/Errors/AuthAlert'
 import VueAxios from 'axios'
 import { store } from './vuexstore/store'
-
 /* Auth token pkg */
 import Auth from './AuthPackage'
+
 window.Auth = Auth
 
 Vue.use(Vuetify)

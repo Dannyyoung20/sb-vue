@@ -111,7 +111,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Leckture'
+      title: 'Lekture'
     }
   },
   name: 'App',
@@ -120,10 +120,10 @@ export default {
       return this.$store.getters.user;
     },
     isAuth () {
-      return this.$store.getters.isAuth
+      return this.$store.getters.isAuth;
     },
     categories () {
-      return this.$store.getters.categories
+      return this.$store.getters.categories;
     }
   },
 

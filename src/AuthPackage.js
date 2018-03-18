@@ -13,8 +13,8 @@ export default {
             return null
 
         if (Date.now() > parseInt(expiration)) {
-            return this.destroyToken()
-            return true
+            this.destroyToken()
+            return null
 
         } 
         else {

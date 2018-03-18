@@ -2,7 +2,9 @@
     <v-container>
         <v-layout row>
             <v-flex text-sm-center text-xs-center>
-                <h1>{{ msg }}</h1>
+                <h1 v-if="user_role == 'User'">Student</h1>
+                <h1 v-else-if="user_role == 'Tutor'">Tutor</h1>
+                <h1 v-else>Admin</h1>
             </v-flex>
         </v-layout>
         <v-layout row>
@@ -30,17 +32,21 @@ export default {
     data () {
         return {
           msg: 'What would you like to learn today?',
+          user_role: this.$store.state.user_role
         }
     },
 
     created () {
-      this.getUser()
+        this.getUser()
     },
 
     methods: {
         getUser () {
           this.$store.dispatch('getUser')
-        }
+        } 
+    },
+    beforeUpdate() {
+        this.getUser()
     }
 
 }
