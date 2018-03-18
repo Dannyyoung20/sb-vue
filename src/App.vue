@@ -29,15 +29,14 @@
 
             <v-list-tile v-model="item.active"
               v-for="item in categories"
-              :key="item.title"
+              :key="item.id"
+              :to="{ name: 'Category', params: { id: item.id }}"
               no-action>
 
-              <router-link
-              :to="{ name: 'Category', params: { id: item.id }}">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
-              </router-link>
+       
               <v-list-tile-action>
                 <v-icon>school</v-icon>
               </v-list-tile-action>
@@ -46,8 +45,7 @@
         </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar
-      app
+    <v-toolbar app
       :clipped-left="clipped"
       color="secondary"
       dark
@@ -102,6 +100,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -111,23 +111,29 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Leckture'
+      title: 'lekture'
     }
   },
   name: 'App',
   computed: {
-    user () {
-      return this.$store.getters.user;
-    },
-    isAuth () {
-      return this.$store.getters.isAuth
-    },
-    categories () {
-      return this.$store.getters.categories
-    }
+    ...mapGetters([
+      'user',
+      'isAuth',
+      'categories'
+    ]),
+  },
+  
+  created () {
+    this.getUser()
+    this.getCategories()
   },
 
-  methods: {
+  methods: {   
+    ...mapActions([
+      'getUser',
+      'getCategories'
+    ]),
+
     logout () {
       this.$store.dispatch('logout').then(res => {
         this.$router.push('/login')

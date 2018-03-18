@@ -74,8 +74,38 @@ const actions = {
         })
     },
 
+    getCourses({commit}) {
+        axios.get('api/courses').then((courses) => {
+            commit('GET_COURSES', courses.data)
+            console.log(courses)
+        }).catch(error => {
+            console.log(error)
+        })
+    },
+    getCourse({commit}, course_id) {
+        axios.get('api/courses/' + course_id).then((course) => {
+            commit('GET_COURSE', course.data)
+            console.log(course.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    },
+
     clearError({ commit }) {
         commit('CLEAR_ERROR')
+    },
+
+    bookCourse({ commit, getters }, payload) {
+        const user_id = getters.user.data.id
+        axios.post('api/course/booked', {
+            course_id: payload.id,
+            tutor_id: payload.tutor_id,
+            student_id: user_id
+        }).then((response) => {
+            console.log('Course booked')
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
 }

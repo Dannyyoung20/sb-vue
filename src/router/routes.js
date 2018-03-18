@@ -1,8 +1,10 @@
-import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/Auth/LoginComponent'
-import Signup from '@/components/Auth/SignupComponent'
-import Dashboard from '@/components/Pages/Dashboard'
-import Category from '@/components/Pages/CategoryCourses'
+import HelloWorld from '@/components/User/Pages/HelloWorld'
+import Login from '@/components/User/Auth/LoginComponent'
+import Signup from '@/components/User/Auth/SignupComponent'
+import Dashboard from '@/components/User/Pages/Dashboard'
+import Category from '@/components/User/Pages/CategoryCourses'
+import Courses from '@/components/User/Pages/Courses'
+import Course from '@/components/User/Pages/Course'
 
 // Routes
 
@@ -44,6 +46,23 @@ export default [
     name: 'Category',
     component: Category,
     props:true,
+    meta: {
+      forAuth: true
+    }
+  },
+  {
+    path: '/courses',
+    name: 'Courses',
+    component: Courses,
+    meta: {
+      forAuth: true
+    }
+  },
+  {
+    path: '/course/:course_id',
+    name: 'Course',
+    props: true,
+    component: Course,
     meta: {
       forAuth: true
     }
