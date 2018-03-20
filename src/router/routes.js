@@ -1,4 +1,4 @@
-import HelloWorld from '@/components/HelloWorld'
+import Home from '@/components/Home'
 import Login from '@/components/Auth/LoginComponent'
 import Signup from '@/components/Auth/SignupComponent'
 import Dashboard from '@/components/Pages/Dashboard'
@@ -9,8 +9,8 @@ import Category from '@/components/Pages/CategoryCourses'
 export default [
   {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld,
+    name: 'Home',
+    component: Home,
     meta: {
       forVisitors: true
     }

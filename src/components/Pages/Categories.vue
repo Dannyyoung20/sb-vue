@@ -23,7 +23,6 @@
                     </v-card-actions>
                 </v-card>
             </v-flex>
-
         </v-layout>
     </v-container>
   
@@ -53,3 +52,7 @@ export default {
   
 }
 </script>
+
+<style scoped>
+
+</style>
