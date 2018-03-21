@@ -24,6 +24,13 @@ const mutations = {
     GET_CATEGORY(state, payload) {
         state.category = payload
     },
+
+    GET_COURSES(state, courses) {
+        state.courses = courses
+    },
+    GET_COURSE(state, course) {
+        state.course = course
+    },
     AUTH_ERROR(state, payload) {
         state.error = payload
     },

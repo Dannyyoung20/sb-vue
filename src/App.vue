@@ -29,15 +29,14 @@
 
             <v-list-tile v-model="item.active"
               v-for="item in categories"
-              :key="item.title"
+              :key="item.id"
+              :to="{ name: 'Category', params: { id: item.id }}"
               no-action>
 
-              <router-link
-              :to="{ name: 'Category', params: { id: item.id }}">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
-              </router-link>
+       
               <v-list-tile-action>
                 <v-icon>school</v-icon>
               </v-list-tile-action>
@@ -45,11 +44,35 @@
           </v-list-group>
         </v-list>
     </v-navigation-drawer>
-    <div>
-      <admin-nav v-if="userRole == 'Admin'"></admin-nav>
-      <tutor-nav v-else-if="userRole == 'Tutor'"></tutor-nav>
-      <user-nav v-else></user-nav>
-    </div>
+
+    <v-toolbar app
+      :clipped-left="clipped"
+      color="secondary"
+      dark
+      v-show="isAuth">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
+        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+      </v-btn>
+      <v-btn icon @click.stop="clipped = !clipped">
+        <v-icon>web</v-icon>
+      </v-btn>
+      <v-btn icon @click.stop="fixed = !fixed">
+        <v-icon>remove</v-icon>
+      </v-btn>
+      <v-toolbar-title v-text="title" ></v-toolbar-title>
+      <v-spacer></v-spacer> <v-spacer></v-spacer>
+      <v-btn flat @click="logout" v-if="isAuth" >
+        <v-icon>exit_to_app</v-icon>
+        Logout
+      </v-btn>
+            <v-spacer></v-spacer>
+
+      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+        <v-icon>menu</v-icon>
+      </v-btn>
+    </v-toolbar>
+
     <v-content>
       <router-view/>
     </v-content>
@@ -77,9 +100,7 @@
 </template>
 
 <script>
-import UserNav from '@/components/Global/UserNav'
-import TutorNav from '@/components/Global/TutorNav'
-import AdminNav from '@/components/Global/AdminNav'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {UserNav, TutorNav, AdminNav},
@@ -91,25 +112,34 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Lekture',
-      userRole: this.$store.state.user_role
+      title: 'lekture'
     }
   },
   name: 'App',
   computed: {
-    user () {
-      return this.$store.getters.user;
-    },
-    isAuth () {
-      return this.$store.getters.isAuth;
-    },
-    categories () {
-      return this.$store.getters.categories;
-    }
+    ...mapGetters([
+      'user',
+      'isAuth',
+      'categories'
+    ]),
+  },
+  
+  created () {
+    this.getUser()
+    this.getCategories()
   },
 
-  methods: {
-    
+  methods: {   
+    ...mapActions([
+      'getUser',
+      'getCategories'
+    ]),
+
+    logout () {
+      this.$store.dispatch('logout').then(res => {
+        this.$router.push('/login')
+      })
+    }
   }
 }
 </script>

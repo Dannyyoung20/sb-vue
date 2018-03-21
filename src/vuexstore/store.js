@@ -13,6 +13,8 @@ export const store =  new Vuex.Store({
         isAuth: !! localStorage.getItem('token'),
         categories: null,
         category: null,
+        courses: null,
+        course: null,
         error: null,
         user_role: null
     },
@@ -23,6 +25,10 @@ export const store =  new Vuex.Store({
         isAuth: state => state.isAuth,
 
         categories: state => state.categories,
+
+        courses: state => state.courses,
+        
+        course: state => state.course,
 
         category: state => state.category,
 
