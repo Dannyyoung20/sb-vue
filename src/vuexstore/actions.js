@@ -94,11 +94,11 @@ const actions = {
         commit('CLEAR_ERROR')
     },
 
-    bookCourse({ commit, getters }, payload) {
+    bookCourse({ commit, getters }, course) {
         const user_id = getters.user.data.id
         axios.post('api/course/booked', {
-            course_id: payload.id,
-            tutor_id: payload.tutor_id,
+            course_id: course.id,
+            tutor_id: course.tutor_id,
             student_id: user_id
         }).then((response) => {
             console.log('Course booked')

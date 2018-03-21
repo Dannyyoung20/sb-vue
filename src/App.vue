@@ -36,7 +36,7 @@
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
-       
+
               <v-list-tile-action>
                 <v-icon>school</v-icon>
               </v-list-tile-action>
@@ -103,7 +103,6 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  components: {UserNav, TutorNav, AdminNav},
   data () {
     return {
       clipped: false,
@@ -123,13 +122,13 @@ export default {
       'categories'
     ]),
   },
-  
+
   created () {
     this.getUser()
     this.getCategories()
   },
 
-  methods: {   
+  methods: {
     ...mapActions([
       'getUser',
       'getCategories'

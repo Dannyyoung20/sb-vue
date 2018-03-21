@@ -7,14 +7,11 @@ import 'vuetify/dist/vuetify.min.css'
 import AuthAlert from '@/components/Errors/AuthAlert'
 import VueAxios from 'axios'
 import { store } from './vuexstore/store'
-<<<<<<< HEAD
+import { interceptor } from './ReqInterceptor'
 /* Auth token pkg */
 import Auth from './AuthPackage'
 
 window.Auth = Auth
-=======
-import { interceptor } from './ReqInterceptor'
->>>>>>> 15988ded24dfbaca9d99f2e6a1a5268b8e77dd3b
 
 Vue.use(Vuetify)
 Vue.component('auth-alert', AuthAlert)

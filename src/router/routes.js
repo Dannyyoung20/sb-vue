@@ -1,4 +1,4 @@
-import HelloWorld from '@/components/User/Pages/HelloWorld'
+import Home from '@/components/User/Pages/Home'
 import Login from '@/components/User/Auth/LoginComponent'
 import Signup from '@/components/User/Auth/SignupComponent'
 import Dashboard from '@/components/User/Pages/Dashboard'
@@ -11,8 +11,8 @@ import Course from '@/components/User/Pages/Course'
 export default [
   {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld,
+    name: 'Home',
+    component: Home,
     meta: {
       forVisitors: true
     }
