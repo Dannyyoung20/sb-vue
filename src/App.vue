@@ -45,33 +45,9 @@
         </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar app
-      :clipped-left="clipped"
-      color="secondary"
-      dark
-      v-show="isAuth">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" ></v-toolbar-title>
-      <v-spacer></v-spacer> <v-spacer></v-spacer>
-      <v-btn flat @click="logout" v-if="isAuth" >
-        <v-icon>exit_to_app</v-icon>
-        Logout
-      </v-btn>
-            <v-spacer></v-spacer>
-
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <div>
+      <user-nav v-if="user_role == 'User'"></user-nav>
+    </div>
 
     <v-content>
       <router-view/>
@@ -101,8 +77,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import UserNav from '@/components/Global/UserNav'
+import TutorNav from '@/components/Global/TutorNav'
+import AdminNav from '@/components/Global/AdminNav'
 
 export default {
+  components: {UserNav, TutorNav, AdminNav},
   data () {
     return {
       clipped: false,
@@ -119,7 +99,8 @@ export default {
     ...mapGetters([
       'user',
       'isAuth',
-      'categories'
+      'categories',
+      'user_role'
     ]),
   },
 
