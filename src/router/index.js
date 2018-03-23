@@ -10,9 +10,11 @@ const router =  new Router({
   routes
 })
 
+const role = window.localStorage.getItem('user_role')
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.forVisitors)) {
-    
+
     if (Auth.isAuthenticated()) {
       next({
         path: '/home                                                                                                                                                                                                                                                                                                                                                                                                                                  '
@@ -26,7 +28,31 @@ router.beforeEach((to, from, next) => {
       next({
         path: '/login'
       })
-    } else next()
+    }else if(to.matched.some(record => record.meta.forUser)){
+      if(role == 'User') {
+        next()
+      } else if(role == 'Admin') {
+        next({name: 'AdminDashboard'})
+      }else if(role == 'Tutor') {
+        next({name: 'TutorDashboard'})
+      }
+    }else if(to.matched.some(record => record.meta.forTutor)){
+      if(role == 'Tutor') {
+        next()
+      } else if(role == 'Admin') {
+        next({name: 'AdminDashboard'})
+      }else if(role == 'User') {
+        next({name: 'Dashboard'})
+      }
+    } else if(to.matched.some(record => record.meta.forAdmin)){
+      if(role == 'Admin') {
+        next()
+      } else if(role == 'User') {
+        next({name: 'Dashboard'})
+      }else if(role == 'Tutor') {
+        next({name: 'TutorDashboard'})
+      }
+    }else next()
   } else next()
 
 })

@@ -5,7 +5,8 @@ const actions = {
             axios.post('api/login', user).then((response) => {
                 const data = {
                     'token': response.data.access_token,
-                    'expiration': response.data.expires_in + Date.now()
+                    'expiration': response.data.expires_in + Date.now(),
+                    'user_role': response.data.user.role_id
                 }
                 if (!data.token)
                     return

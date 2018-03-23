@@ -5,68 +5,91 @@ import Dashboard from '@/components/User/Pages/Dashboard'
 import Category from '@/components/User/Pages/CategoryCourses'
 import Courses from '@/components/User/Pages/Courses'
 import Course from '@/components/User/Pages/Course'
+import Tutor from '@/components/Tutor/Pages/Tutor'
+
+// Meta Auth Imports
+import { AuthAdmin,
+         AuthTutor,
+         AuthVisitors,
+         AuthUser
+        } from './auth'
 
 // Routes
 
 export default [
+  // General Routes Stars Here
   {
     path: '/',
     name: 'Home',
     component: Home,
-    meta: {
-      forVisitors: true
-    }
+    meta: AuthVisitors
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: {
-      forVisitors: true
-    }
+    meta: AuthVisitors
   },
   {
     path: '/signup',
     name: 'Signup',
     component: Signup,
-    meta: {
-      forVisitors: true
-    }
+    meta: AuthVisitors
   },
+  // General Routes Ends Here
+
+  // Users Routes Starts Here
   {
     path: '/home',
     name: 'Dashboard',
     component: Dashboard,
-    meta: {
-      forAuth: true
-    }
+    meta: AuthUser
   },
   {
     path: '/category/:id/courses',
     name: 'Category',
     component: Category,
     props:true,
-    meta: {
-      forAuth: true
-    }
+    meta: AuthUser
   },
   {
     path: '/courses',
     name: 'Courses',
     component: Courses,
-    meta: {
-      forAuth: true
-    }
+    meta: AuthUser
   },
   {
     path: '/course/:course_id',
     name: 'Course',
     props: true,
     component: Course,
-    meta: {
-      forAuth: true
-    }
+    meta: AuthUser
+    // Users Rroutes Ends Here
   },
+
+  /**
+   * Tutors Routes Begins Here
+   */
+  {
+    path: '/tutor',
+    name: 'TutorDashboard',
+    component: Tutor,
+    meta: AuthTutor
+  },
+
+
+
+
+  /**
+   * Admin Routes Begins Here
+   */
+
+  {
+    path: '/tutor',
+    name: 'AdminDashboard',
+    component: Tutor,
+    meta: AuthAdmin
+  }
 ];
 
 
