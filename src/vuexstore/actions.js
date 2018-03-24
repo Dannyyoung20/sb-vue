@@ -6,13 +6,12 @@ const actions = {
                 const data = {
                     'token': response.data.access_token,
                     'expiration': response.data.expires_in + Date.now(),
-                    'user_role': response.data.user.role_id
                 }
                 if (!data.token)
                     return
                 else
                     commit('IS_AUTH', data)
-
+                    commit('SET_USER_ROLE', response.data.user.role_id)
                 resolve(response)
 
             }).catch(({ response }) => {
@@ -30,6 +29,7 @@ const actions = {
                     'expiration': response.data.expires_in + Date.now()
                 }
                 commit('IS_AUTH', data)
+                commit('SET_USER_ROLE', response.data.user)
                 resolve(response)
 
             }).catch(error => {
@@ -43,7 +43,6 @@ const actions = {
         axios.get('api/user').then(response => {
             commit('SET_USER', null)
             commit('SET_USER', response.data)
-            commit('SET_USER_ROLE', response.data.data.role)
 
         }).catch(error => {
             commit('SET_USER', null)

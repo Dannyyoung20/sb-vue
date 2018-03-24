@@ -27,7 +27,7 @@ export const store =  new Vuex.Store({
         categories: state => state.categories,
 
         courses: state => state.courses,
-        
+
         course: state => state.course,
 
         category: state => state.category,
