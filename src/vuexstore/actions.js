@@ -11,7 +11,7 @@ const actions = {
                     return
                 else
                     commit('IS_AUTH', data)
-                    commit('SET_USER_ROLE', response.data.user.role_id)
+                    commit('SET_USER_ROLE', 'User')
                 resolve(response)
 
             }).catch(({ response }) => {
@@ -29,7 +29,7 @@ const actions = {
                     'expiration': response.data.expires_in + Date.now()
                 }
                 commit('IS_AUTH', data)
-                commit('SET_USER_ROLE', response.data.user)
+                commit('SET_USER_ROLE', 'User')
                 resolve(response)
 
             }).catch(error => {
@@ -37,6 +37,47 @@ const actions = {
                 commit('IS_AUTH', false)
             })
         })
+    },
+
+    loginTutor({commit}, cred){
+      commit('CLEAR_ERROR')
+        return new Promise((resolve, reject) => {
+            axios.post('api/login/tutor', cred).then((response) => {
+              console.log(response);
+                const data = {
+                    'token': response.data.access_token,
+                    'expiration': response.data.expires_in + Date.now(),
+                }
+                if (!data.token)
+                    return
+                else
+                    commit('IS_AUTH', data)
+                    commit('SET_USER_ROLE', 'Tutor')
+                resolve(response)
+
+            }).catch(({ response }) => {
+                reject(response)
+                commit('AUTH_ERROR', response.data.error)
+            })
+        })
+    },
+
+    registerTutor({commit}, cred){
+        return new Promise((resolve, reject) => {
+          axios.post('/api/register', user).then((response) => {
+              const data = {
+                  'token': response.data.access_token,
+                  'expiration': response.data.expires_in + Date.now()
+              }
+              commit('IS_AUTH', data)
+              commit('SET_USER_ROLE', 'User')
+              resolve(response)
+
+          }).catch(error => {
+              reject(error)
+              commit('IS_AUTH', false)
+          })
+      })
     },
 
     getUser({ commit }) {

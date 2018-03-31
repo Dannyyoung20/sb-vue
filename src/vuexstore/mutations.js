@@ -3,15 +3,7 @@ const mutations = {
         state.user = payload
     },
     SET_USER_ROLE(state, payload) {
-        var user_role
-        if(payload == 3) {
-          user_role = 'Admin'
-        }else if(payload == 2) {
-          user_role = 'Tutor'
-        }else{
-          user_role = 'User'
-        }
-        state.user_role = user_role
+        state.user_role = payload
     },
     LOGOUT(state) {
         localStorage.removeItem('token')

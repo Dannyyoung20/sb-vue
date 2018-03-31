@@ -6,6 +6,7 @@ import Category from '@/components/User/Pages/CategoryCourses'
 import Courses from '@/components/User/Pages/Courses'
 import Course from '@/components/User/Pages/Course'
 import Tutor from '@/components/Tutor/Pages/Tutor'
+import TutorLogin from '@/components/Tutor/Auth/TutorLogin'
 
 // Meta Auth Imports
 import { AuthAdmin,
@@ -71,10 +72,22 @@ export default [
    * Tutors Routes Begins Here
    */
   {
+    path: '/login/tutor',
+    name: 'TutorLogin',
+    component: TutorLogin,
+    meta: AuthVisitors
+  },
+  {
     path: '/tutor',
     name: 'TutorDashboard',
     component: Tutor,
     meta: AuthTutor
+  },
+  {
+    path: '/tutor/settings',
+    name: 'TutorSettingsDashboard',
+    component: Tutor,
+    meta: AuthAdmin
   },
 
 
